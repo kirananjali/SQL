@@ -1,0 +1,42 @@
+##Stored Procedures##
+What is it?
+A stored procedure is a precompiled block of SQL code saved in the database that can be called by name whenever needed. It works like a function in programming — you define the logic once and reuse it multiple times without rewriting the same SQL again.
+
+Why is it used?
+It is used to improve reusability, performance, and security. Since the procedure is precompiled, it executes faster than sending raw SQL each time. It also keeps business logic centralized in the database, making it easier to maintain and update.
+--------
+
+DELIMITER $$
+CREATE PROCEDURE procedurename()
+BEGIN
+    sql statement
+END $$
+DELIMITER ;
+
+CALL procedurename();
+-------------------------------------------------
+
+##Dynamic SQL##
+What is it?
+Dynamic SQL is SQL that is constructed as a string and executed at runtime rather than being hardcoded. Instead of a fixed query, the query is built on the fly based on variables, conditions, or user input — allowing things like variable table names, column names, and optional filters.
+
+Why is it used?
+It is used when the query structure itself needs to change depending on conditions. Static SQL cannot use variables as table or column names, so dynamic SQL fills that gap. It is especially useful for building flexible stored procedures, generic utilities, and conditional WHERE clauses.
+-----------------------------------------------------
+
+##Indexing##
+What is it?
+An index is a database object that speeds up data retrieval by creating a separate lookup structure on one or more columns. Without an index, SQL scans every row in a table (full table scan). With an index, it jumps directly to the relevant rows, similar to how a book index helps you find a topic without reading every page.
+
+Why is it used?
+It is used to improve query performance on large tables, especially on columns frequently used in WHERE, JOIN, or ORDER BY clauses. The tradeoff is that indexes consume extra storage and slightly slow down INSERT, UPDATE, and DELETE operations since the index also needs to be updated.
+
+Clustered Index
+What is it?
+A clustered index determines the physical order of data stored in the table. The table rows are sorted and stored on disk in the order of the clustered index column. There can only be one clustered index per table because the data can only be physically sorted one way. In MySQL, the primary key is automatically a clustered index.
+
+Non-Clustered Index
+What is it?
+A non-clustered index is a separate structure from the table data that stores the index column values along with a pointer back to the actual row. The physical order of the table is not changed. You can have multiple non-clustered indexes on a single table, one for each column or combination of columns you want to speed up.
+
+
