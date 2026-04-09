@@ -1,0 +1,4 @@
+0408- 
+Natural key, surrogate key
+Query optimization Technique
+Trigger
