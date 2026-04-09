@@ -1,0 +1,132 @@
+04/08/2026
+
+------------------------------------
+NATURAL KEY, SURROGATE KEY
+------------------------------------
+
+Natural Key:
+A natural key is a real-world attribute that uniquely identifies a record, like an email or Social Security number. It has business meaning but can change over time.
+
+Surrogate Key:
+A surrogate key is a database-generated ID with no real-world meaning, like id INT AUTO_INCREMENT. It is stable, small, and used internally to uniquely identify rows.
+------------------------
+CREATE TABLE employees (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50),
+    department VARCHAR(50),
+    salary INT,
+    hire_date DATE
+);
+--------------------------------------------------------
+Query optimization Technique
+--------------------------------------------------------
+1. use only necessary columns
+2. use where before Groupby and Having
+3. Avoid functions on indexed columns
+   (better use 'between' instead of 'where')
+4. use limit efficiently
+   (to understand how data distributed... limit data)
+    limit 1000
+5. use CTE for readable query breakdown
+    (debug your query)
+6. use EXPLAIN (to know how it works behind)
+7. Maintenance commands
+  [Analyse, Optimize]
+   TCL(transaction control Language)[when doing some transactions, if more than 1 person is           writing data, they don't see someone is also on the same page until they commit their changes. when using Analyse, Optimize it says status OK(good to use), may be (not available) when someone else is already writing]
+
+   (multiple operations happening on the same table, they don't know someone also working on it. it maintain the status (ok, good to use) else may be shows someone using it.
+
+ANALYZE TABLE sakila.customer
+OPTIMIZE TABLE sakila.customer)
+
+
+8. Avoid large OFFSETS in pagination
+   Inefficient
+      LIMIT 1000,10
+   Efficient
+    where pay>1000 LIMIT 10
+-------------------------------
+CODE SNIPPETS
+-------------------------------
+-- 1.
+/*SELECT * from employees;
+SELECT name, salary FROM employees;
+*/
+-- 2.
+/*SELECT department, COUNT(*) 
+FROM employees
+GROUP BY department
+HAVING department = 'IT';
+*/
+/*SELECT department, COUNT(*) 
+FROM employees
+WHERE department = 'IT'
+GROUP BY department;
+*/
+-- 3.
+/*
+SELECT * 
+FROM employees
+WHERE YEAR(hire_date) = 2022;
+
+SELECT * 
+FROM employees
+WHERE hire_date BETWEEN '2022-01-01' AND '2022-12-31';
+*/
+-- 4.
+/*
+SELECT * 
+FROM employees
+LIMIT 3;*/
+-- 5.
+/*
+SELECT department, AVG(salary)
+FROM employees
+WHERE salary > 55000
+GROUP BY department;
+*/
+
+/*
+WITH high_salary AS (
+    SELECT * 
+    FROM employees 
+    WHERE salary > 55000
+)
+SELECT department, AVG(salary)
+FROM high_salary
+GROUP BY department;
+*/
+-- 6.
+/*
+EXPLAIN
+SELECT * 
+FROM employees
+WHERE salary > 60000;
+*/
+-- 7.
+/*
+ANALYZE TABLE employees;
+OPTIMIZE TABLE employees;
+*/
+-- 8. 
+/*
+SELECT * 
+FROM employees
+LIMIT 3 OFFSET 2;
+
+SELECT * 
+FROM employees
+WHERE id > 2
+LIMIT 3;
+*/
+
+--------------------------------------------
+TRIGGER
+--------------------------------------------
+A trigger is a special type of stored procedure in SQL that automatically executes when a specific event occurs on a table.
+
+Event can be INSERT, UPDATE, or DELETE
+Trigger runs before or after the event
+
+DML Triggers (Data Manipulation Language): data changes such as INSERT, UPDATE, or DELETE.
+DDL Triggers (Data Definition Language): schema changes like CREATE, ALTER, or DROP.
