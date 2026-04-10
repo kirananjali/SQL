@@ -2,3 +2,6 @@
 Natural key, surrogate key
 Query optimization Technique
 Trigger
+
+python(0409)--
+python operators, if/else, for loop
