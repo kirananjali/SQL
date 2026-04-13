@@ -12,4 +12,5 @@ Trigger
 python(0409)--
 python operators, if/else, for loop
 
-
+python -- strings, list
+strings, string methods, list, list comprehensions
