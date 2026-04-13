@@ -1,3 +1,9 @@
+assignment1
+
+joins(assignment2)
+
+assignment3 (VIEW, TEMP TABLE, CTE, SUBQUERIES)
+
 0408- 
 Natural key, surrogate key
 Query optimization Technique
@@ -5,3 +11,5 @@ Trigger
 
 python(0409)--
 python operators, if/else, for loop
+
+
